@@ -1,7 +1,5 @@
 package ru.otus.homework
 
-import java.util.LinkedList
-
 fun main() {
     println("=== Command Pattern ===")
     val calculator = Calculator()
@@ -23,7 +21,7 @@ class Calculator {
     private var history: List<Command> = emptyList()
     private var historyPointer = 0
     private fun addCommand(command: Command) {
-        history = history + command.apply { execute() }
+        history = history.subList(0, historyPointer) + command.apply { execute() }
         historyPointer++
     }
 
@@ -32,13 +30,11 @@ class Calculator {
         return value
     }
 
-    fun undo(): Calculator {
+    fun undo(): Calculator = apply {
         history.getOrNull(--historyPointer)?.undo()
-        return this
     }
-    fun redo(): Calculator {
+    fun redo(): Calculator = apply {
         history.getOrNull(historyPointer++)?.execute()
-        return this
     }
 
     fun add(operand: Int): Calculator = apply {
