@@ -37,7 +37,7 @@ class Calculator {
         return this
     }
     fun redo(): Calculator {
-        println("Redo???")
+        history.getOrNull(historyPointer++)?.execute()
         return this
     }
 
