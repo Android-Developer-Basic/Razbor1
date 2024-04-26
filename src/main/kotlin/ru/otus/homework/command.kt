@@ -1,5 +1,7 @@
 package ru.otus.homework
 
+import java.util.LinkedList
+
 fun main() {
     println("=== Command Pattern ===")
     val calculator = Calculator()
@@ -19,7 +21,9 @@ fun main() {
 class Calculator {
 
     private var value = 0
-    fun getValue(): Int = value
+    fun getValue(): Int {
+        return value
+    }
 
     fun undo(): Calculator {
         println("Undo???")
@@ -30,20 +34,57 @@ class Calculator {
         return this
     }
 
-    fun add(operand: Int): Calculator {
-        value += operand
-        return this
+    fun add(operand: Int): Calculator = apply {
+        AddCommand(operand).execute()
     }
-    fun subtract(operand: Int): Calculator {
-        value -= operand
-        return this
+    fun subtract(operand: Int): Calculator = apply {
+        SubtractCommand(operand).execute()
     }
-    fun multiply(operand: Int): Calculator {
-        value *= operand
-        return this
+    fun multiply(operand: Int): Calculator = apply {
+        MultiplyCommand(operand).execute()
     }
-    fun divide(operand: Int): Calculator {
-        value /= operand
-        return this
+    fun divide(operand: Int): Calculator = apply {
+        DivideCommand(operand).execute()
+    }
+
+    interface Command {
+        fun execute()
+        fun undo()
+    }
+
+    private inner class AddCommand(private val operand: Int) : Command {
+        override fun execute() {
+            value += operand
+        }
+        override fun undo() {
+            value -= operand
+        }
+    }
+
+    private inner class SubtractCommand(private val operand: Int) : Command {
+        override fun execute() {
+            value -= operand
+        }
+        override fun undo() {
+            value += operand
+        }
+    }
+
+    private inner class MultiplyCommand(private val operand: Int) : Command {
+        override fun execute() {
+            value *= operand
+        }
+        override fun undo() {
+            value /= operand
+        }
+    }
+
+    private inner class DivideCommand(private val operand: Int) : Command {
+        override fun execute() {
+            value /= operand
+        }
+        override fun undo() {
+            value *= operand
+        }
     }
 }
