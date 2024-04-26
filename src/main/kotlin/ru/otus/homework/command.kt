@@ -21,6 +21,15 @@ class Calculator {
     private var value = 0
     fun getValue(): Int = value
 
+    fun undo(): Calculator {
+        println("Undo???")
+        return this
+    }
+    fun redo(): Calculator {
+        println("Redo???")
+        return this
+    }
+
     fun add(operand: Int): Calculator {
         value += operand
         return this

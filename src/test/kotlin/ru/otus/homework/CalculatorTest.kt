@@ -31,4 +31,20 @@ class CalculatorTest {
         calculator.add(8).divide(2)
         assertEquals(4, calculator.getValue())
     }
+
+    @Test
+    fun testUndo() {
+        val calculator = Calculator()
+        calculator.add(2).undo()
+        assertEquals(0, calculator.getValue())
+    }
+
+    @Test
+    fun testRedo() {
+        val calculator = Calculator()
+        calculator.add(2).undo()
+        assertEquals(0, calculator.getValue())
+        calculator.redo()
+        assertEquals(2, calculator.getValue())
+    }
 }
