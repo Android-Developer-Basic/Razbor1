@@ -47,4 +47,15 @@ class CalculatorTest {
         calculator.redo().redo()
         assertEquals(2, calculator.getValue())
     }
+
+    @Test
+    fun testHistoryRebase() {
+        val calculator = Calculator()
+        calculator.add(2)
+        calculator.add(3)
+        calculator.undo()
+        calculator.add(4)
+        calculator.undo().undo()
+        assertEquals(0, calculator.getValue())
+    }
 }
