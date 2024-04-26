@@ -35,7 +35,7 @@ class CalculatorTest {
     @Test
     fun testUndo() {
         val calculator = Calculator()
-        calculator.add(2).undo()
+        calculator.add(2).undo().undo()
         assertEquals(0, calculator.getValue())
     }
 
@@ -44,7 +44,7 @@ class CalculatorTest {
         val calculator = Calculator()
         calculator.add(2).undo()
         assertEquals(0, calculator.getValue())
-        calculator.redo()
+        calculator.redo().redo()
         assertEquals(2, calculator.getValue())
     }
 }

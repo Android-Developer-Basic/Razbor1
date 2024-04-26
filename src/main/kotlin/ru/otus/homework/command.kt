@@ -20,13 +20,20 @@ fun main() {
 
 class Calculator {
 
+    private var history: List<Command> = emptyList()
+    private var historyPointer = 0
+    private fun addCommand(command: Command) {
+        history = history + command.apply { execute() }
+        historyPointer++
+    }
+
     private var value = 0
     fun getValue(): Int {
         return value
     }
 
     fun undo(): Calculator {
-        println("Undo???")
+        history.getOrNull(--historyPointer)?.undo()
         return this
     }
     fun redo(): Calculator {
@@ -35,16 +42,16 @@ class Calculator {
     }
 
     fun add(operand: Int): Calculator = apply {
-        AddCommand(operand).execute()
+        addCommand(AddCommand(operand))
     }
     fun subtract(operand: Int): Calculator = apply {
-        SubtractCommand(operand).execute()
+        addCommand(SubtractCommand(operand))
     }
     fun multiply(operand: Int): Calculator = apply {
-        MultiplyCommand(operand).execute()
+        addCommand(MultiplyCommand(operand))
     }
     fun divide(operand: Int): Calculator = apply {
-        DivideCommand(operand).execute()
+        addCommand(DivideCommand(operand))
     }
 
     interface Command {
