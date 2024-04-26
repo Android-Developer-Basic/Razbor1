@@ -3,7 +3,7 @@ package ru.otus.homework
 fun main() {
 
     val order = mutableListOf<ReceiptItem>()
-    order.add(Coffee())
+    order.add(CoffeeWithMilk())
     order.add(Tea())
 
     println("Thank you!")
@@ -20,9 +20,14 @@ interface ReceiptItem {
     fun getPrice(): Double
 }
 
-class Coffee : ReceiptItem {
+open class Coffee : ReceiptItem {
     override fun getName(): String = "Coffee"
     override fun getPrice(): Double = 1.0
+}
+
+class CoffeeWithMilk : Coffee() {
+    override fun getName(): String = super.getName() + " + milk"
+    override fun getPrice(): Double = super.getPrice() + 0.5
 }
 
 class Tea : ReceiptItem {
