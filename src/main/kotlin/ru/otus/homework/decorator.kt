@@ -4,7 +4,7 @@ fun main() {
 
     val order = mutableListOf<ReceiptItem>()
     order.add(CoffeeWithMilk())
-    order.add(CoffeeWithSugar())
+    order.add(CoffeeWithMilkAndSugar())
 
     println("Thank you!")
     var total = 0.0
@@ -31,6 +31,14 @@ open class CoffeeWithMilk : Coffee() {
 }
 
 open class CoffeeWithSugar : Coffee() {
+    override fun getName(): String = super.getName() + " + sugar"
+    override fun getPrice(): Double = super.getPrice() + 0.2
+}
+
+// Проблемы с наследованием!!!
+// Мы не можем создать класс, который наследует CoffeeWithMilk и CoffeeWithSugar
+// и добавляем сахар, повторяя класс CoffeeWithSugar
+class CoffeeWithMilkAndSugar : CoffeeWithMilk() {
     override fun getName(): String = super.getName() + " + sugar"
     override fun getPrice(): Double = super.getPrice() + 0.2
 }
