@@ -4,7 +4,7 @@ fun main() {
 
     val order = mutableListOf<ReceiptItem>()
     order.add(CoffeeWithMilk())
-    order.add(Tea())
+    order.add(CoffeeWithSugar())
 
     println("Thank you!")
     var total = 0.0
@@ -25,9 +25,14 @@ open class Coffee : ReceiptItem {
     override fun getPrice(): Double = 1.0
 }
 
-class CoffeeWithMilk : Coffee() {
+open class CoffeeWithMilk : Coffee() {
     override fun getName(): String = super.getName() + " + milk"
     override fun getPrice(): Double = super.getPrice() + 0.5
+}
+
+open class CoffeeWithSugar : Coffee() {
+    override fun getName(): String = super.getName() + " + sugar"
+    override fun getPrice(): Double = super.getPrice() + 0.2
 }
 
 class Tea : ReceiptItem {
